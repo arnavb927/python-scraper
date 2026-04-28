@@ -1,0 +1,441 @@
+repo_name,uses_mas,use_case
+01-ai/langcrew,yes,Workflow Automation
+1Panel-dev/ClawSwarm,yes,Workflow Automation
+1Panel-dev/MaxKB,yes,Workflow Automation
+2FastLabs/agent-squad,yes,Workflow Automation
+666ghj/BettaFish,yes,Workflow Automation
+666ghj/MiroFish,yes,Workflow Automation
+7836246/cursor2api,no,Workflow Automation
+AI4Finance-Foundation/FinRobot,yes,Workflow Automation
+AOSSIE-Org/Devr.AI,yes,Workflow Automation
+AgentR1/Agent-R1,no,Simulation
+AgenticGoKit/AgenticGoKit,yes,Workflow Automation
+AgentsMesh/AgentsMesh,yes,Workflow Automation
+Alishahryar1/free-claude-code,yes,Workflow Automation
+AmberLJC/LLMSys-PaperList,no,Workflow Automation
+Armur-Ai/Pentest-Swarm-AI,yes,Workflow Automation
+Aspegio/nelson,yes,Workflow Automation
+AutoJunjie/awesome-agent-harness,no,Workflow Automation
+Azure-Samples/microsoft-foundry-baseline,no,Workflow Automation
+Azure-Samples/python-agentframework-demos,yes,Workflow Automation
+Bessouat40/RAGLight,no,RAG + Agents
+BradyFU/Awesome-Multimodal-Large-Language-Models,no,None
+ChicagoHAI/NeuriCo,yes,Workflow Automation
+Community-Access/accessibility-agents,,
+CopilotKit/CopilotKit,,
+CortexReach/memory-lancedb-pro,no,RAG + Agents
+Cranot/claude-code-guide,no,Workflow Automation
+DavidZWZ/Awesome-Deep-Research,no,None
+Dicklesworthstone/coding_agent_session_search,no,Workflow Automation
+Enderfga/openclaw-claude-code,yes,Workflow Automation
+EvoMap/awesome-agent-evolution,no,Workflow Automation
+Evolutionary-Intelligence/pypop,,
+Findomain/Findomain,no,Workflow Automation
+FlowiseAI/Flowise,yes,Workflow Automation
+Fosowl/agenticSeek,yes,Workflow Automation
+GetStream/Vision-Agents,no,Workflow Automation
+GoogleChrome/lighthouse,no,Workflow Automation
+GoogleCloudPlatform/generative-ai,,
+GopeedLab/gopeed,no,Workflow Automation
+GradientHQ/parallax,no,None
+HITsz-TMG/AIGC-Claw,yes,Workflow Automation
+HKUDS/ClawTeam,yes,Workflow Automation
+HKUDS/Paper2Slides,no,Workflow Automation
+HKUSTDial/DeepFund,yes,Workflow Automation
+HPInc/AI-Blueprints,yes,Workflow Automation
+Hawksight-AI/semantica,yes,Workflow Automation
+HoangNguyen0403/agent-skills-standard,no,Workflow Automation
+IQAIcom/adk-ts,yes,Workflow Automation
+Idun-Group/idun-agent-platform,no,Workflow Automation
+InfinitiBit/graphbit,yes,Workflow Automation
+Integuru-AI/Integuru,no,Workflow Automation
+Intelligent-Internet/ii-agent,yes,Workflow Automation
+InternLM/lagent,yes,Workflow Automation
+Jenqyang/Awesome-AI-Agents,no,Workflow Automation
+JudgmentLabs/judgeval,no,None
+JulietaUla/Montserrat,no,None
+K-Dense-AI/karpathy,yes,Workflow Automation
+Kocoro-lab/ShanClaw,yes,Workflow Automation
+LCLM-Horizon/A-Comprehensive-Survey-For-Long-Context-Language-Modeling,no,None
+LeapLabTHU/cooragent,yes,Workflow Automation
+Lissy93/web-check,no,Workflow Automation
+MARS-EAI/VIKI-R,no,Simulation
+Marktechpost/AI-Agents-Projects-Tutorials,,
+MiroMindAI/MiroThinker,yes,Workflow Automation
+ModelEngine-Group/nexent,yes,Workflow Automation
+NVIDIA-NeMo/DataDesigner,no,Workflow Automation
+NVIDIA/aistore,no,Workflow Automation
+NYU-LLM-CTF/nyuctf_agents,yes,Workflow Automation
+Narcooo/inkos,yes,Workflow Automation
+Nasiko-Labs/nasiko,yes,Workflow Automation
+NirDiamant/GenAI_Agents,yes,Workflow Automation
+Norbert515/vide_cli,yes,Workflow Automation
+NovaSky-AI/SkyRL,yes,Workflow Automation
+Nuitka/Nuitka,no,Code Generation
+OWASP/wstg,yes,Workflow Automation
+Open-Lemon/LemonAgent,no,Workflow Automation
+OpenBMB/ChatDev,yes,Workflow Automation
+OpenPipe/ART,yes,Workflow Automation
+OpenRLHF/OpenRLHF,no,Workflow Automation
+Oqura-ai/deepdoc,yes,Workflow Automation
+Paper2Poster/Paper2Poster,,
+PetroIvaniuk/llms-tools,no,None
+Piebald-AI/claude-code-system-prompts,no,Workflow Automation
+PurpleAILAB/Decepticon,yes,Workflow Automation
+QizhiPei/Awesome-Biomolecule-Language-Cross-Modeling,no,None
+QwenLM/Qwen3,yes,Workflow Automation
+RDFLib/rdflib,no,Workflow Automation
+ReversecLabs/drozer,no,None
+RobotecAI/rai,yes,Simulation
+SWE-agent/mini-swe-agent,yes,Workflow Automation
+SalesforceAIResearch/MCP-Universe,yes,Workflow Automation
+SalesforceAIResearch/enterprise-deep-research,yes,Workflow Automation
+Shubhamsaboo/awesome-llm-apps,,
+Significant-Gravitas/AutoGPT,,
+Simple-Efficient/RL-Factory,yes,Workflow Automation
+SolaceLabs/solace-agent-mesh,,
+Sri-Krishna-V/awesome-adk-agents,yes,Workflow Automation
+Steffen025/pai-opencode,yes,Workflow Automation
+Stephane-D/SGDK,no,None
+THU-MAIC/OpenMAIC,yes,Workflow Automation
+The-Pocket/PocketFlow,yes,Workflow Automation
+Thinklab-SJTU/Awesome-LLM4AD,no,None
+TimeCopilot/timecopilot,yes,Workflow Automation
+ToolBrain/ToolBrain,no,Workflow Automation
+Tswoen/Paper-Agent,yes,RAG + Agents
+VRSEN/agency-swarm,yes,Workflow Automation
+VectifyAI/PageIndex,no,RAG + Agents
+Vigil-SOC/vigil,yes,Workflow Automation
+VoltAgent/awesome-claude-code-subagents,no,Workflow Automation
+VoltAgent/awesome-openclaw-skills,no,None
+WangRongsheng/awesome-LLM-resources,no,None
+X-PLUG/MobileAgent,,
+XMUDeepLIT/Awesome-Self-Evolving-Agents,no,None
+XiaomiMiMo/MiMo-V2-Flash,no,None
+YoungDubbyDu/Awesome-LLM-Agent-Optimization-Papers,no,None
+YuyaoGe/Awesome-Vibe-Coding,no,None
+ZJU-LLMs/Agent-Kernel,yes,Simulation
+ZeframLou/call-me,no,Workflow Automation
+Zettelgarden/Zettelgarden,no,Workflow Automation
+acon96/home-llm,no,Workflow Automation
+actions/checkout,no,Workflow Automation
+affaan-m/everything-claude-code,yes,Workflow Automation
+ag2ai/ag2,yes,Workflow Automation
+agentfront/frontmcp,yes,Workflow Automation
+agentscope-ai/agentscope,yes,Workflow Automation
+agentscope-ai/agentscope-java,,
+agentscope-ai/agentscope-runtime,no,Workflow Automation
+agno-agi/agno,yes,Workflow Automation
+ai-boost/awesome-a2a,no,None
+ai-boost/awesome-ai-for-science,no,None
+ai-boost/awesome-prompts,no,Workflow Automation
+ai-winter/ros_motion_planning,no,Simulation
+aiming-lab/SimpleMem,no,RAG + Agents
+aldinokemal/go-whatsapp-web-multidevice,no,Workflow Automation
+algorithmicsuperintelligence/optillm,yes,Workflow Automation
+alibaba/ROLL,no,Workflow Automation
+alicevision/AliceVision,no,Workflow Automation
+alvinreal/awesome-opensource-ai,no,Workflow Automation
+amantus-ai/vibetunnel,yes,Workflow Automation
+ampache/ampache,no,Workflow Automation
+anthropics/claude-cookbooks,yes,Workflow Automation
+anthropics/courses,no,Workflow Automation
+antvis/mcp-server-chart,no,Workflow Automation
+apache/fesod,no,Workflow Automation
+asmjit/asmjit,no,Code Generation
+athivvat/ai-engineer-guide,no,None
+avelino/awesome-go,no,None
+avinash201199/free-ai-agents-resources,no,Workflow Automation
+awesome-jellyfin/awesome-jellyfin,no,None
+awesome-selfhosted/awesome-selfhosted,no,None
+aws-samples/amazon-sagemaker-generativeai,,
+aws-samples/sample-agentic-frameworks-on-aws,yes,Workflow Automation
+awslabs/agentcore-samples,,
+awslabs/cli-agent-orchestrator,yes,Workflow Automation
+awslabs/fullstack-solution-template-for-agentcore,yes,Workflow Automation
+axsaucedo/kaos,yes,Workflow Automation
+backbay-labs/clawdstrike,,
+bansky-cl/diffusion-nlp-paper-arxiv,no,Workflow Automation
+batocera-linux/batocera.linux,,
+bitwize-music-studio/claude-ai-music-skills,yes,Workflow Automation
+bolna-ai/bolna,no,Workflow Automation
+bowang-lab/MedRAX,yes,Workflow Automation
+bpg/terraform-provider-proxmox,no,Workflow Automation
+bradAGI/awesome-cli-coding-agents,yes,Workflow Automation
+breaking-brake/cc-wf-studio,yes,Workflow Automation
+browser-use/workflow-use,no,Workflow Automation
+browserslist/browserslist,no,Workflow Automation
+bubbuild/bub,yes,Workflow Automation
+builderz-labs/mission-control,yes,Workflow Automation
+bytedance/trae-agent,no,Workflow Automation
+camel-ai/camel,yes,Workflow Automation
+camel-ai/owl,yes,Workflow Automation
+caramaschiHG/awesome-ai-agents-2026,no,None
+chocolatey/choco,,
+christopherkarani/Swarm,yes,Workflow Automation
+cjbarber/ToolsOfTheTrade,no,None
+clduab11/gemini-flow,yes,Workflow Automation
+cluesmith/codev,yes,Workflow Automation
+cnoe-io/ai-platform-engineering,yes,Workflow Automation
+cognizant-ai-lab/neuro-san-studio,,
+confident-ai/deepeval,no,Workflow Automation
+containers/crun,no,None
+crewAIInc/crewAI-examples,yes,Workflow Automation
+ctf-wiki/ctf-wiki,no,Workflow Automation
+dair-ai/Prompt-Engineering-Guide,no,None
+danielmiessler/Personal_AI_Infrastructure,yes,Workflow Automation
+databendlabs/databend,no,Workflow Automation
+dataelement/bisheng,yes,Workflow Automation
+datahub-project/datahub,,
+datawhalechina/easy-vibe,,
+dcostenco/prism-mcp,,
+deanpeters/Product-Manager-Skills,no,Workflow Automation
+debezium/debezium,,
+deepnoodle-ai/dive,yes,Workflow Automation
+deepseek-ai/awesome-deepseek-integration,no,None
+defold/defold,,
+divar-ir/ai-doc-gen,yes,Workflow Automation
+dnhkng/GLaDOS,yes,Workflow Automation
+dnnyngyen/iron-manus-mcp,yes,Workflow Automation
+dontriskit/awesome-ai-system-prompts,no,None
+duke-git/lancet,no,None
+elastic/logstash,no,Workflow Automation
+enescingoz/awesome-n8n-templates,,
+erev0s/VAmPI,no,None
+etcd-io/etcd,no,None
+eudk/awesome-ai-tools,no,None
+facebook/react-strict-dom,no,Workflow Automation
+fastruby/fast-ruby,no,Workflow Automation
+fffaraz/awesome-cpp,no,None
+filipecalegario/awesome-generative-ai,no,None
+flypythoncom/python,no,Workflow Automation
+freeCodeCamp/awesome-quincy-larson-emails,no,Workflow Automation
+gadievron/raptor,yes,Workflow Automation
+gastownhall/gastown,yes,Workflow Automation
+genieincodebottle/generative-ai,yes,Workflow Automation
+gflags/gflags,no,Workflow Automation
+ghdl/ghdl,no,Simulation
+gluk-w/claworc,yes,Workflow Automation
+gmh5225/awesome-game-security,,
+google-gemini/cookbook,yes,Workflow Automation
+google/adk-go,yes,Workflow Automation
+google/adk-python,yes,Workflow Automation
+google/adk-samples,yes,Workflow Automation
+google/tunix,,
+grafana/mcp-grafana,no,Workflow Automation
+gsd-build/get-shit-done,yes,Workflow Automation
+gsd-build/gsd-2,yes,Workflow Automation
+gtmagents/gtm-agents,no,Workflow Automation
+guidance-ai/guidance,no,Workflow Automation
+gwtproject/gwt,no,None
+handsome-rich/Awesome-Auto-Research-Tools,no,Workflow Automation
+haoruilee/awesome-agent-native-services,no,Workflow Automation
+hashicorp/boundary,no,Workflow Automation
+heilcheng/awesome-agent-skills,no,None
+hesreallyhim/awesome-claude-code,no,Workflow Automation
+hidai25/eval-view,no,Workflow Automation
+hiyouga/LlamaFactory,no,Workflow Automation
+hongleizhang/RSPapers,,
+huggingface/agents-course,yes,Workflow Automation
+hussius/deeplearning-biology,no,None
+iSEngLab/AwesomeLLM4SE,no,None
+icip-cas/PPTAgent,yes,Workflow Automation
+idosal/git-mcp,no,Workflow Automation
+imran-siddique/agent-os,yes,Workflow Automation
+inclusionAI/AWorld,yes,Workflow Automation
+infiniflow/ragflow,yes,Workflow Automation
+inspec/inspec,no,Workflow Automation
+intel/confidential-computing.sgx,no,Workflow Automation
+isekOS/ISEK,yes,Workflow Automation
+iterate/iterate,no,Workflow Automation
+j3ssie/osmedeus,yes,Workflow Automation
+jackyideal/AlphaTeam,yes,Workflow Automation
+jamwithai/production-agentic-rag-course,yes,Workflow Automation
+jd-opensource/JoySafeter,yes,Workflow Automation
+jeremylongshore/claude-code-plugins-plus-skills,,
+jerry609/PaperBot,yes,Workflow Automation
+jim-schwoebel/awesome_ai_agents,no,None
+jivoi/awesome-osint,no,None
+jphall663/awesome-machine-learning-interpretability,no,None
+kagent-dev/kagent,yes,Workflow Automation
+kagenti/kagenti,,
+katanaml/sparrow,no,Workflow Automation
+katanemo/plano,yes,Workflow Automation
+kelos-dev/kelos,yes,Workflow Automation
+kelvins/awesome-mlops,no,Workflow Automation
+kennethleungty/Finance-LLMs,no,Workflow Automation
+keon/awesome-nlp,no,None
+keon/awesome-physical-ai,no,None
+keploy/keploy,no,Workflow Automation
+kif-framework/KIF,no,Workflow Automation
+ksluckow/awesome-symbolic-execution,no,None
+kyrolabs/awesome-langchain,no,None
+l33tdawg/sage,yes,Workflow Automation
+langchain-ai/langchainjs,yes,Workflow Automation
+langchain-ai/langmem,no,Workflow Automation
+langfuse/langfuse,no,Workflow Automation
+langgenius/dify,yes,Workflow Automation
+laramies/theHarvester,no,Workflow Automation
+lemony-ai/cascadeflow,no,Workflow Automation
+linuxkit/linuxkit,no,Workflow Automation
+livekit-examples/python-agents-examples,yes,Workflow Automation
+llamastack/llama-stack,no,Workflow Automation
+llm4s/llm4s,,
+llmsresearch/paperbanana,yes,Workflow Automation
+llvm/circt,no,None
+luckyPipewrench/pipelock,no,Workflow Automation
+lukilabs/craft-agents-oss,yes,Workflow Automation
+malhashemi/opencode-skills,no,Workflow Automation
+mandiant/flare-fakenet-ng,no,Simulation
+marcelscruz/dev-resources,no,Workflow Automation
+martymcenroe/AssemblyZero,yes,Workflow Automation
+masaic-ai-platform/AgC,no,Workflow Automation
+matiasmolinas/evolving-agents,yes,Workflow Automation
+mdozmorov/scRNA-seq_notes,no,None
+meganz/sdk,no,Workflow Automation
+memodb-io/Acontext,yes,Workflow Automation
+micronucleus/micronucleus,no,Workflow Automation
+microsoft-foundry/mcp-foundry,no,Workflow Automation
+microsoft/Agent-Framework-Samples,,
+microsoft/DirectXTK,no,Workflow Automation
+microsoft/RD-Agent,yes,Workflow Automation
+microsoft/Security-101,no,Workflow Automation
+microsoft/TinyTroupe,,
+microsoft/agent-lightning,yes,Workflow Automation
+microsoft/aitour26-WRK540-unlock-your-agents-potential-with-model-context-protocol,,
+microsoft/autogen,yes,Workflow Automation
+microsoft/botframework-sdk,,
+microsoft/content-processing-solution-accelerator,no,Workflow Automation
+microsoft/magentic-ui,yes,Workflow Automation
+microsoft/mcp-interviewer,no,Workflow Automation
+microsoft/semantic-kernel,,
+microsoft/vcpkg,no,Workflow Automation
+minipuft/claude-prompts,yes,Workflow Automation
+mmphego/mmphego,no,Workflow Automation
+moazbuilds/CodeMachine-CLI,yes,Workflow Automation
+modelscope/ms-agent,yes,Workflow Automation
+momo-personal-assistant/momo-research,,
+moshehbenavraham/Ultimate-Agent-Directory,no,Workflow Automation
+msitarzewski/agency-agents,yes,Workflow Automation
+natlas/natlas,no,Workflow Automation
+nazdridoy/kokoro-tts,no,Workflow Automation
+neo-project/neo,no,None
+nexi-lab/nexus,no,Workflow Automation
+nf-core/rnaseq,no,Workflow Automation
+nikmcfly/MiroFish-Offline,yes,Workflow Automation
+nikolaydubina/go-recipes,no,Workflow Automation
+nim-lang/Nim,no,None
+onlurking/awesome-infosec,no,None
+open-experiments/agent-exchange,yes,Workflow Automation
+open-metadata/OpenMetadata,,
+openai/evals,,
+openai/openai-agents-js,yes,Workflow Automation
+openai/openai-agents-python,yes,Workflow Automation
+opencrust-org/opencrust,yes,Workflow Automation
+opendilab/awesome-ui-agents,no,None
+opensolon/solon-ai,yes,Workflow Automation
+oskardudycz/EventSourcing.NetCore,,
+oxylabs/how-to-scrape-google-flights,no,Workflow Automation
+oxylabs/how-to-scrape-google-images,no,Workflow Automation
+oz123/awesome-c,no,None
+pacoxu/AI-Infra,no,Workflow Automation
+panaversity/learn-agentic-ai,,
+paperclipai/paperclip,yes,Workflow Automation
+paralleldrive/aidd,yes,Workflow Automation
+parcadei/Continuous-Claude-v3,yes,Workflow Automation
+pathwaycom/bdh,no,Simulation
+paullarionov/claude-certified-architect,no,None
+penpot/penpot,,
+pgermishuys/opencode-weave,yes,Workflow Automation
+plasma-umass/coz,no,Workflow Automation
+plexe-ai/plexe,yes,Workflow Automation
+poemswe/co-researcher,yes,Workflow Automation
+projectdiscovery/shuffledns,no,Workflow Automation
+protontypes/open-sustainable-technology,no,Workflow Automation
+punkpeye/awesome-mcp-servers,no,Workflow Automation
+pytorch/rl,no,Simulation
+qarmin/czkawka,no,Workflow Automation
+qazbnm456/awesome-web-security,no,None
+qdhenry/Claude-Command-Suite,,
+qmonnet/awesome-ebpf,no,None
+qualisero/awesome-pi-agent,no,Workflow Automation
+ripienaar/free-for-dev,no,None
+ritchieng/the-incredible-pytorch,no,None
+rohitg00/awesome-ai-apps,yes,Workflow Automation
+rohitg00/awesome-openclaw,no,Workflow Automation
+rrweb-io/rrweb,,
+ruc-datalab/DeepAnalyze,no,Workflow Automation
+run-llama/llama-agents,no,Workflow Automation
+rust-unofficial/awesome-rust,no,Workflow Automation
+ruvnet/RuView,yes,Workflow Automation
+ruvnet/ruflo,yes,Workflow Automation
+ruvnet/ruv-FANN,,
+s-smits/agentic-cursorrules,no,Workflow Automation
+sdi2200262/agentic-project-management,yes,Workflow Automation
+seandavi/awesome-single-cell,no,None
+semantalytics/awesome-semantic-web,no,None
+shanraisshan/claude-code-best-practice,yes,Workflow Automation
+shareAI-lab/learn-claude-code,yes,Workflow Automation
+showlab/Awesome-Video-Diffusion,no,None
+sickn33/antigravity-awesome-skills,,
+simonw/claude-code-transcripts,no,Workflow Automation
+sirkirby/unifi-mcp,no,Workflow Automation
+smallnest/langgraphgo,yes,Workflow Automation
+snarktank/ai-dev-tasks,no,Workflow Automation
+snarktank/antfarm,yes,Workflow Automation
+snoopysecurity/awesome-burp-extensions,no,None
+sottlmarek/DevSecOps,no,Workflow Automation
+splx-ai/agentic-radar,no,Workflow Automation
+spmallick/learnopencv,,
+stevelaskaridis/awesome-mobile-llm,no,None
+stophobia/deerflow2.0-enhanced,yes,Workflow Automation
+stravu/crystal,no,Workflow Automation
+streetsidesoftware/cspell,no,Workflow Automation
+superiorlu/AITreasureBox,no,None
+taishi-i/awesome-ChatGPT-repositories,no,None
+tambo-ai/tambo,no,Workflow Automation
+tanishqkumar/beyond-nanogpt,no,Workflow Automation
+tarun7r/deep-research-agent,yes,Workflow Automation
+tensorflow/tfjs,no,Workflow Automation
+testdriverai/testdriverai,no,Workflow Automation
+tirth8205/code-review-graph,no,Workflow Automation
+tkmru/awesome-edr-bypass,no,None
+towardsai/agent-course-notebooks,yes,Workflow Automation
+trackawesomelist/trackawesomelist,no,Workflow Automation
+trailheadapps/lwc-recipes,no,None
+transitive-bullshit/agentic,no,Workflow Automation
+tribixbite/awesome,no,None
+trungdq88/Awesome-Black-Friday-Cyber-Monday,no,None
+turbot/steampipe,,
+unohee/OpenSwarm,yes,Workflow Automation
+unoplat/unoplat-code-confluence,,
+vectorize-io/hindsight,no,RAG + Agents
+veelenga/awesome-crystal,no,Workflow Automation
+veggiemonk/awesome-docker,no,Workflow Automation
+verl-project/verl,no,Workflow Automation
+video-db/call.md,no,Workflow Automation
+vijaythecoder/awesome-claude-agents,yes,Workflow Automation
+viktorbezdek/awesome-github-projects,no,Workflow Automation
+vinilana/dotcontext,yes,Workflow Automation
+vmware/open-vm-tools,no,Workflow Automation
+vortezwohl/Autono,yes,Workflow Automation
+vstorm-co/memv,no,Workflow Automation
+vuejs/awesome-vue,no,None
+wangkai930418/awesome-diffusion-categorized,no,None
+wanshuiyin/Auto-claude-code-research-in-sleep,yes,Workflow Automation
+warestack/watchflow,yes,Workflow Automation
+wcventure/FuzzingPaper,no,None
+webpack/webpack,,
+wilsonfreitas/awesome-quant,no,Workflow Automation
+wpscanteam/wpscan,,
+wrtnlabs/agentica,yes,Workflow Automation
+wshobson/agents,yes,Workflow Automation
+x-glacier/GenerativeAgentsCN,yes,Workflow Automation
+xindoo/agentic-design-patterns,no,Workflow Automation
+xiph/opus,no,None
+xixu-me/xget,no,None
+xnl-h4ck3r/xnLinkFinder,no,Workflow Automation
+yhzhu99/MedAgentBoard,yes,Simulation
+yinggaozhen/awesome-go-cn,no,None
+yologdev/yoyo-evolve,yes,Workflow Automation
+zfw1226/gym-unrealcv,no,Simulation

@@ -2,3 +2,6 @@
 __pycache__/
 *.pyc
 venv/
+repo_clones/
+repo_reports/_state.json
+repo_reports/_state.json.tmp
