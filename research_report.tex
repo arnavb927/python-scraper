@@ -1,0 +1,266 @@
+\documentclass[12pt,a4paper,onecolumn]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage{setspace}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+
+\title{Multi-Agent Systems in the Wild:\\A Code-Grounded Empirical Study of Open-Source Agent Repositories}
+\author{HKUST UROP 1100 Report\\Author: Arnav Bala\\Supervisor: Professor Arpit Narechania}
+\date{\today}
+
+\begin{document}
+\doublespacing
+\maketitle
+\begingroup
+\setcounter{tocdepth}{2}
+\small
+\setlength{\parskip}{0pt}
+\setlength{\itemsep}{0pt}
+\tableofcontents
+\endgroup
+\newpage
+
+\begin{abstract}
+This research report examines how open-source repositories labeled as multi-agent systems actually behave in code. We built a reproducible pipeline that discovers candidate projects, applies stratified sampling, performs shallow cloning, and generates structured repository analyses. The current snapshot contains 459 completed Markdown reports and 517 CSV entries, with 446 fully classified records. Results show a consistent gap between repository marketing language and runtime coordination semantics: many projects are agent-related but do not execute true multi-agent collaboration. Among repositories that do, workflow automation patterns dominate. Additional scans indicate frequent mentions of MCP, retrieval stacks, and browser or shell tooling, suggesting integration surface is a major practical differentiator in real deployments.
+\end{abstract}
+
+\section{Introduction}
+The central goal of this research is to understand how multi-agent systems are actually being used in real open-source projects.
+This direction was inspired in part by early research notes from Yanwei Huang, a Ph.D. student supervised by Professor Arpit Narechania, who highlighted practical gaps around parallelism and coordination in current MAS design tools.
+
+The core challenge is that repository labels do not always match runtime behavior. A project may describe itself as \emph{multi-agent}, \emph{agentic}, or \emph{autonomous}, but the implementation may still be a single-agent flow or standard automation pipeline. The opposite also happens: some repositories with modest descriptions contain real multi-agent coordination in code.
+
+To address this gap, this project uses a repeatable, code-grounded workflow. Instead of depending only on README claims, we inspect source files, produce structured repository reports, and aggregate the findings in a classification CSV. This approach lets us measure not only how often agent language appears, but how multi-agent systems are used in practice.
+
+Concretely, this report delivers three outputs: a code-grounded usage profile of MAS repositories, a ranked view of the most visible framework ecosystems, and a practical analysis of what extra code is needed to implement different orchestration patterns.
+
+This document is written as a \textbf{research report}. The pipeline produced a large snapshot, with some known data-quality gaps in metadata consistency and incomplete rows in the aggregate CSV.
+
+\section{Project Status}
+\subsection{What is finished}
+The core workflow is complete and stable enough for large-batch runs:
+\begin{itemize}
+  \item Repository discovery and filtering are implemented in \texttt{mas\_scraper.py}.
+  \item Balanced sampling across use-case buckets and popularity tiers is implemented in the build-balanced-sample script.
+  \item Automated repository analysis is implemented in \texttt{analyze\_repos.py}.
+  \item Structured outputs are saved in \texttt{repo\_reports/*.md}.
+  \item Aggregate labels are tracked in \texttt{repo\_reports/\_classifications.csv}.
+\end{itemize}
+
+\subsection{Future corpus expansion and improvement opportunities}
+If this work is extended in the future, four practical improvements would add value:
+\begin{enumerate}
+  \item Analyze more repositories so the dataset better covers fast-moving and newly updated projects.
+  \item Resolve incomplete or blank classification rows caused by failed runs and parsing drift.
+  \item Run one final consistency pass so report counts and CSV counts match the same snapshot date.
+  \item Add a short manual audit sample to estimate labeling reliability.
+\end{enumerate}
+
+These are optional future improvements and do not require a redesign of the pipeline.
+
+\section{Method Overview}
+\subsection{Step 1: Discover candidate repositories}
+We query GitHub using topic tags and keyword phrases that are common in agent projects. We then apply practical filters: minimum stars, minimum contributors, non-empty README, and recent activity. This helps remove abandoned or low-signal repositories while keeping a broad set of projects.
+
+\subsection{Step 2: Build a balanced sample}
+Discovered repositories are grouped into five heuristic use-case buckets:
+\begin{itemize}
+  \item Workflow Automation
+  \item Code Generation
+  \item RAG + Agents
+  \item Browser / Terminal Use
+  \item Simulation
+\end{itemize}
+
+Each repository is also placed in a popularity tier (Mainstream, Mid-Tier, Niche). Sampling is balanced across these groups so one category does not dominate the study.
+
+\subsection{Step 3: Analyze repository code}
+For each sampled repository, we shallow-clone the codebase and run a structured analysis prompt. The generated report is not only descriptive. It also ends with three machine-readable fields:
+\begin{itemize}
+  \item \texttt{mas\_related}
+  \item \texttt{uses\_mas}
+  \item \texttt{use\_case}
+\end{itemize}
+These fields are extracted into a CSV for aggregation.
+
+\subsection{Step 4: Aggregate and reconcile}
+Finally, we compare three counts: Markdown reports, CSV rows, and fully populated classifications. Differences between these counts are expected in a long-running pipeline, but they should be explained and reduced before final submission.
+
+\section{Current Dataset Snapshot}
+Table~\ref{tab:snapshot} gives the main status numbers for this research report.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+\toprule
+Metric & Count \\
+\midrule
+Completed Markdown reports & 459 \\
+Rows in classification CSV & 517 \\
+Rows with full classification fields & 446 \\
+Rows still incomplete & 71 \\
+\bottomrule
+\end{tabular}
+\caption{Current project snapshot used in this research report.}
+\label{tab:snapshot}
+\end{table}
+
+Two gaps are important. First, there are more CSV rows than Markdown reports. This usually happens when repositories are tracked by the ledger but analysis fails (for example, clone limits or timeouts). Second, some Markdown reports still do not map cleanly to a complete classification row because of parsing and backfill drift. Both gaps are documented here and represent clear opportunities for future cleanup.
+
+\subsection{Reconciliation details}
+To make the counts transparent, the snapshot can be read in two short equations:
+\begin{itemize}
+  \item \(517 - 459 = 58\): repositories tracked in the ledger/CSV but without a completed Markdown report in the current snapshot.
+  \item \(459 - 446 = 13\): repositories with a Markdown report that still do not have a complete classification triple in the CSV.
+\end{itemize}
+These values are consistent with the 71 incomplete CSV rows shown in Table~\ref{tab:snapshot}.
+
+Table~\ref{tab:bucket} shows how completed reports are distributed by upstream sampling bucket.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+\toprule
+Upstream bucket & Completed reports \\
+\midrule
+Browser / Terminal Use & 111 \\
+Code Generation & 99 \\
+Simulation & 89 \\
+RAG + Agents & 89 \\
+Workflow Automation & 71 \\
+\bottomrule
+\end{tabular}
+\caption{Completed reports by upstream heuristic bucket.}
+\label{tab:bucket}
+\end{table}
+
+The bucket totals show that the sample remains broad. No single bucket overwhelms the dataset.
+
+\section{How MAS Is Being Used in Practice}
+Table~\ref{tab:masuse} summarizes how the 446 fully classified repositories are used in code. The strongest pattern is straightforward: workflow-oriented implementations dominate the final labels, whether or not a repository runs coordinated multi-agent behavior at runtime.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+\toprule
+Code-grounded outcome (\(n=446\)) & Count \\
+\midrule
+\texttt{uses\_mas=yes} & 213 \\
+\texttt{uses\_mas=no} & 233 \\
+\texttt{use\_case=Workflow Automation} & 348 \\
+\texttt{use\_case=None} & 78 \\
+\texttt{use\_case=Simulation} & 11 \\
+\texttt{use\_case=RAG + Agents} & 7 \\
+\texttt{use\_case=Code Generation} & 2 \\
+\bottomrule
+\end{tabular}
+\caption{How MAS-related repositories are used in practice after code-grounded classification.}
+\label{tab:masuse}
+\end{table}
+
+The most frequent joint outcomes are also informative:
+\begin{itemize}
+  \item \texttt{mas\_related=yes}, \texttt{uses\_mas=yes}, \texttt{use\_case=Workflow Automation}: 208 repositories.
+  \item \texttt{mas\_related=yes}, \texttt{uses\_mas=no}, \texttt{use\_case=Workflow Automation}: 139 repositories.
+  \item \texttt{mas\_related=no}, \texttt{uses\_mas=no}, \texttt{use\_case=None}: 78 repositories.
+\end{itemize}
+
+Taken together, these counts suggest that many repositories in this ecosystem are built around predictable orchestration pipelines, and only a subset implements explicit multi-agent coordination loops.
+
+\section{Most Used MAS Libraries and Frameworks}
+To answer which libraries appear most often, we counted the \texttt{architecture\_labels} field in frontmatter across 459 completed reports. Table~\ref{tab:frameworks} shows the ranking.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{lr}
+\toprule
+Architecture label frequency (\(n=459\) reports) & Count \\
+\midrule
+CrewAI & 382 \\
+LangGraph & 96 \\
+LangChain & 88 \\
+Custom/Other & 74 \\
+AutoGen & 57 \\
+\bottomrule
+\end{tabular}
+\caption{Most frequent framework labels in report frontmatter.}
+\label{tab:frameworks}
+\end{table}
+
+These are prevalence signals, not strict import-level ground truth. Still, they provide a useful answer to which ecosystem names are most visible in current open-source MAS usage.
+
+\section{Implementation Overhead by Orchestration Pattern}
+Beyond naming frameworks, a practical question is what extra code is needed to make different orchestration patterns work. Table~\ref{tab:overhead} summarizes this using motif prevalence from report \S3 text scans (Hierarchical 235, Graph-based 215, Event-driven 128, Swarm/P2P 112, Blackboard 5) plus code-grounded interpretation.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{p{3.0cm}p{1.8cm}p{7.0cm}}
+\toprule
+Pattern family & Typical overhead & Extra code usually required \\
+\midrule
+Workflow / linear pipelines & Low--Medium & Task sequencing, tool wrappers, retry/error handling, logging, and state passing between steps. \\
+Hierarchical manager-worker & Medium & Router or supervisor agent logic, role-specific prompts, handoff contracts, and worker result aggregation. \\
+Graph / state-machine orchestration & Medium--High & Node-edge definitions, conditional transitions, shared state store, guardrails for loops, and traceability hooks. \\
+Swarm / peer-to-peer handoff & High & Dynamic routing, agent-selection policies, stronger memory/context control, conflict handling, and observability for non-linear paths. \\
+Event-driven / bus-based patterns & High & Message schemas, queue or bus adapters, idempotency controls, retries/dead-letter handling, and consumer coordination. \\
+\bottomrule
+\end{tabular}
+\caption{Implementation overhead needed to operationalize common orchestration patterns.}
+\label{tab:overhead}
+\end{table}
+
+This table is descriptive for this corpus snapshot. It suggests that moving from linear workflow orchestration to decentralized handoff patterns typically adds more supporting code around routing, state management, and operational safety.
+
+\paragraph{Concrete examples from analyzed repositories.}
+The pattern-to-overhead mapping in Table~\ref{tab:overhead} is also reflected in repository-level evidence: \texttt{actions/cache} illustrates low-overhead deterministic workflow steps; \texttt{openai/swarm} shows explicit handoff logic for higher-overhead peer transfer; \texttt{langchain-ai/langchain} demonstrates graph/state-machine style routing primitives; \texttt{microsoft/autogen} highlights event/message-oriented coordination infrastructure; and \texttt{HKUDS/LightRAG} provides explicit multi-agent transition maps in demo flows.
+
+\section{Discussion}
+The report does not argue that multi-agent systems are rare. Instead, it shows that public labels and practical usage are not always the same. When code-level evidence is required, workflow-heavy implementation patterns dominate, while explicit multi-agent coordination appears in a smaller but still substantial share of projects.
+
+For research and benchmarking, this matters because conclusions can shift depending on whether repositories are counted by keywords or by runtime behavior in code.
+
+\section{Limitations}
+This research report should be read with the following limits in mind:
+\begin{itemize}
+  \item The analysis relies heavily on one automated reviewer workflow.
+  \item Repositories are shallow-cloned, so deep history is not analyzed.
+  \item Very large repositories may be skipped for compute and storage reasons.
+  \item Timeouts can truncate difficult repositories.
+  \item Keyword scans over report text are useful but still approximate.
+\end{itemize}
+
+None of these limits invalidate the project, but they explain important scope and reliability boundaries for this research report.
+
+\section{Future Improvement Directions}
+If this dataset is extended later, the following quality-focused steps would be most useful:
+\begin{enumerate}
+  \item \textbf{CSV cleanup pass:} regenerate and reconcile incomplete rows using existing reports and state records.
+  \item \textbf{Manual validation sample:} hand-check a stratified subset to estimate agreement with automated labels.
+  \item \textbf{Stability rerun:} rerun a smaller batch to confirm that counts remain consistent on a fresh snapshot.
+  \item \textbf{Final write-up polish:} tighten wording, align all tables with one snapshot date, and lock the final appendix list.
+\end{enumerate}
+
+Completing these steps in a future extension would further improve reliability.
+
+\section{Conclusion}
+This research report presents a working, reproducible pipeline for studying open-source multi-agent repositories at scale. The current snapshot is already large enough to support meaningful observations. The most important result is a practical one: repository labels and real runtime behavior are often different, so code-grounded analysis is necessary for trustworthy conclusions.
+
+The key takeaway is not architectural change but quality consolidation: reconciling incomplete rows, adding a targeted manual audit, and freezing one clean snapshot would make future releases more robust.
+
+\appendix
+\section{Reference repositories used in examples}
+\begin{itemize}
+  \item \href{https://github.com/actions/cache}{actions/cache}
+  \item \href{https://github.com/HKUDS/LightRAG}{HKUDS/LightRAG}
+  \item \href{https://github.com/langchain-ai/langchain}{langchain-ai/langchain}
+  \item \href{https://github.com/microsoft/autogen}{microsoft/autogen}
+  \item \href{https://github.com/openai/swarm}{openai/swarm}
+\end{itemize}
+
+\end{document}
