@@ -19,6 +19,7 @@ so no duplicates appear in the output.
 
 from __future__ import annotations
 
+import argparse
 import json
 import random
 from collections import Counter, defaultdict
@@ -72,17 +73,44 @@ def pick_primary_use_case(labels: list[str]) -> str | None:
 
 def rank_key(repo: dict) -> tuple:
     # Higher is "better". Sort by total_score, then stars, then contributors.
+    arch = repo.get("architecture_labels") or []
+    has_non_custom_arch = any(lbl != "Custom/Other" for lbl in arch)
+    name = (repo.get("repo_name") or "").lower()
+    awesome_penalty = 1 if "awesome" in name else 0
     return (
+        2 if has_non_custom_arch else 0,
+        2 if repo.get("has_langgraph") else 0,
+        -awesome_penalty,
         repo.get("total_score") or 0,
         repo.get("stars") or 0,
         repo.get("contributors_count") or 0,
     )
 
 
-def main() -> None:
-    random.seed(RANDOM_SEED)
+def parse_args() -> argparse.Namespace:
+    p = argparse.ArgumentParser(
+        description="Build a balanced MAS repo sample from summary JSON."
+    )
+    p.add_argument("--input", default=str(INPUT_PATH),
+                   help="Path to input summary JSON.")
+    p.add_argument("--output", default=str(OUTPUT_PATH),
+                   help="Path to output balanced sample JSON.")
+    p.add_argument("--target-per-bucket", type=int, default=TARGET_PER_BUCKET,
+                   help="Target repos per (use_case, tier) bucket.")
+    p.add_argument("--seed", type=int, default=RANDOM_SEED,
+                   help="Random seed for sampling.")
+    return p.parse_args()
 
-    with INPUT_PATH.open("r", encoding="utf-8") as f:
+
+def main() -> None:
+    args = parse_args()
+    random.seed(args.seed)
+
+    input_path = Path(args.input)
+    output_path = Path(args.output)
+    target_per_bucket = max(1, int(args.target_per_bucket))
+
+    with input_path.open("r", encoding="utf-8") as f:
         repos = json.load(f)
 
     buckets: dict[tuple[str, str], list[dict]] = defaultdict(list)
@@ -112,13 +140,13 @@ def main() -> None:
             candidates = buckets.get(key, [])
             candidates_sorted = sorted(candidates, key=rank_key, reverse=True)
 
-            if len(candidates_sorted) <= TARGET_PER_BUCKET:
+            if len(candidates_sorted) <= target_per_bucket:
                 chosen = candidates_sorted
             else:
                 # Take top half by score, then randomly sample the rest
                 # from the full ranked list to keep mix of quality + variety.
-                top_slice = candidates_sorted[: TARGET_PER_BUCKET * 2]
-                chosen = random.sample(top_slice, TARGET_PER_BUCKET)
+                top_slice = candidates_sorted[: target_per_bucket * 2]
+                chosen = random.sample(top_slice, target_per_bucket)
 
             sampled.extend(chosen)
             sample_counts[key] = len(chosen)
@@ -135,13 +163,13 @@ def main() -> None:
         )
     )
 
-    with OUTPUT_PATH.open("w", encoding="utf-8") as f:
+    with output_path.open("w", encoding="utf-8") as f:
         json.dump(sampled, f, indent=2, ensure_ascii=False)
 
     print(f"Total input repos: {len(repos)}")
     print(f"Skipped (no target use case label): {skipped_no_use_case}")
     print(f"Total sampled: {len(sampled)}")
-    print(f"Wrote: {OUTPUT_PATH}\n")
+    print(f"Wrote: {output_path}\n")
 
     print("Bucket distribution (use_case, tier) -> sampled / pool")
     print("-" * 70)

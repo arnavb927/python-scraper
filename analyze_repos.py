@@ -474,6 +474,8 @@ CSV_USE_CASES = {
     "None",
 }
 
+_MAS_RELATED_RE = re.compile(r"^\s*MAS_RELATED\s*:\s*(yes|no)\b",
+                             re.IGNORECASE | re.MULTILINE)
 _USES_MAS_RE = re.compile(r"^\s*USES_MAS\s*:\s*(yes|no)\b",
                           re.IGNORECASE | re.MULTILINE)
 _FINAL_UC_RE = re.compile(r"^\s*FINAL_USE_CASE\s*:\s*(.+?)\s*$",
@@ -481,14 +483,20 @@ _FINAL_UC_RE = re.compile(r"^\s*FINAL_USE_CASE\s*:\s*(.+?)\s*$",
 
 
 def parse_classification(report_text: str) -> Dict[str, str]:
-    """Pull `uses_mas` and `final_use_case` out of the agent's report body.
+    """Pull machine-readable classification fields from the report body.
 
-    Returns a dict with `uses_mas` ("yes"|"no"|"") and `final_use_case`
-    (one of CSV_USE_CASES, or "" if the agent didn't emit a recognizable
-    value). Empty strings let the CSV writer surface "needs review" rows
-    rather than silently mislabel anything.
+    Returns a dict with:
+      - `mas_related` ("yes"|"no"|"")
+      - `uses_mas` ("yes"|"no"|"")
+      - `final_use_case` (one of CSV_USE_CASES, or "")
+    Empty strings let the CSV writer surface "needs review" rows rather than
+    silently mislabel anything.
     """
-    out = {"uses_mas": "", "final_use_case": ""}
+    out = {"mas_related": "", "uses_mas": "", "final_use_case": ""}
+
+    m = _MAS_RELATED_RE.search(report_text)
+    if m:
+        out["mas_related"] = m.group(1).lower()
 
     m = _USES_MAS_RE.search(report_text)
     if m:
@@ -506,28 +514,47 @@ def parse_classification(report_text: str) -> Dict[str, str]:
                 out["final_use_case"] = canonical
                 break
 
+    # Backward compatibility for older reports that only emitted USES_MAS
+    # and FINAL_USE_CASE.
+    if not out["mas_related"]:
+        if out["uses_mas"] == "yes":
+            out["mas_related"] = "yes"
+        elif out["final_use_case"] and out["final_use_case"] != "None":
+            out["mas_related"] = "yes"
+        elif out["final_use_case"] == "None":
+            out["mas_related"] = "no"
+
     return out
 
 
 def write_classifications_csv(state: StateLedger,
                               path: Path = CLASSIFICATIONS_CSV_PATH) -> None:
-    """Emit a 3-column CSV summarizing every repo we have a record for.
+    """Emit a CSV summarizing every repo we have a record for.
 
-    Columns: repo_name, uses_mas, use_case. Rows are sorted by repo_name
-    for stable diffs. Repos that were processed but failed (or are missing
-    a classification) get blank cells so they're easy to grep for.
+    Columns: repo_name, mas_related, uses_mas_runtime, uses_mas, use_case.
+    Rows are sorted by repo_name for stable diffs. Repos that were processed
+    but failed (or are missing a classification) get blank cells so they're
+    easy to grep for.
     """
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as fh:
         writer = csv.writer(fh, quoting=csv.QUOTE_MINIMAL)
-        writer.writerow(["repo_name", "uses_mas", "use_case"])
+        writer.writerow([
+            "repo_name",
+            "mas_related",
+            "uses_mas_runtime",
+            "uses_mas",
+            "use_case",
+        ])
         for repo_name in sorted(state.data.keys()):
             rec = state.data[repo_name]
             if rec.get("status") != "done":
-                writer.writerow([repo_name, "", ""])
+                writer.writerow([repo_name, "", "", "", ""])
                 continue
             writer.writerow([
                 repo_name,
+                rec.get("mas_related", "") or "",
+                rec.get("uses_mas", "") or "",
                 rec.get("uses_mas", "") or "",
                 rec.get("final_use_case", "") or "",
             ])
@@ -688,12 +715,17 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
                    help="Skip repos whose name sorts before this owner/repo.")
     p.add_argument("--retry-failed", action="store_true",
                    help="Only re-process entries marked 'failed' in state.")
+    p.add_argument("--include-known", action="store_true",
+                   help="Include repos already present in state. By default, "
+                        "previously seen repos are skipped to save credits.")
     p.add_argument("--dry-run", action="store_true",
                    help="Print the planned work and exit without cloning.")
     p.add_argument("--max-size-kb", type=int, default=MAX_REPO_SIZE_KB,
                    help="Skip repos whose clone exceeds this size in KB.")
     p.add_argument("--agent-timeout", type=int, default=AGENT_TIMEOUT_S,
                    help="Per-repo agent timeout in seconds.")
+    p.add_argument("--clones-dir", default=str(CLONES_DIR),
+                   help="Directory for temporary shallow clones.")
     p.add_argument("--csv-only", action="store_true",
                    help="Rebuild repo_reports/_classifications.csv from "
                         "existing reports + state, then exit. No clones, "
@@ -720,8 +752,8 @@ def load_shortlist() -> List[Dict[str, Any]]:
 
 
 def backfill_classifications_from_reports(state: StateLedger) -> int:
-    """Populate `uses_mas` / `final_use_case` in state from existing .md
-    files when those fields are missing. Returns count of records updated.
+    """Populate classification fields in state from existing .md files
+    when missing. Returns count of records updated.
 
     Useful after upgrading the prompt: re-runs aren't required for any
     report whose body already contains the machine-readable block.
@@ -742,6 +774,9 @@ def backfill_classifications_from_reports(state: StateLedger) -> int:
         for repo_name, rec in state.data.items():
             if rec.get("md_path", "").endswith(md_file.name):
                 changed = False
+                if clf.get("mas_related") and not rec.get("mas_related"):
+                    rec["mas_related"] = clf["mas_related"]
+                    changed = True
                 if clf.get("uses_mas") and not rec.get("uses_mas"):
                     rec["uses_mas"] = clf["uses_mas"]
                     changed = True
@@ -772,7 +807,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     check_prereqs(require_runtime=not args.dry_run)
 
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    CLONES_DIR.mkdir(parents=True, exist_ok=True)
+    clones_dir = Path(args.clones_dir)
+    clones_dir.mkdir(parents=True, exist_ok=True)
 
     template = PROMPT_TEMPLATE_PATH.read_text(encoding="utf-8")
     entries = load_shortlist()
@@ -798,6 +834,11 @@ def main(argv: Optional[List[str]] = None) -> int:
             continue
 
         md_path = REPORTS_DIR / report_filename(entry)
+        if not args.include_known and repo_name in state.data:
+            print(f"[ {idx:>3}/{len(work)}] {repo_name} ... already seen, "
+                  f"skipping")
+            continue
+
         if md_path.exists() or state.is_done(repo_name):
             print(f"[ {idx:>3}/{len(work)}] {repo_name} ... already done, "
                   f"skipping")
@@ -816,7 +857,7 @@ def main(argv: Optional[List[str]] = None) -> int:
                   f"{entry.get('user_tier','?')} {repo_name}")
         print(f"{prefix} ... cloning (eta {eta_str})", flush=True)
 
-        clone_dir = CLONES_DIR / report_filename(entry).rsplit(".", 1)[0]
+        clone_dir = clones_dir / report_filename(entry).rsplit(".", 1)[0]
         repo_start = time.monotonic()
         try:
             git_clone_shallow(entry["url"], clone_dir)
@@ -840,6 +881,7 @@ def main(argv: Optional[List[str]] = None) -> int:
                 "model": DEFAULT_MODEL,
                 "duration_s": round(duration, 1),
                 "clone_size_kb": size_kb,
+                "mas_related": classification.get("mas_related") or "unknown",
                 "uses_mas": classification.get("uses_mas") or "unknown",
                 "final_use_case": classification.get("final_use_case")
                                   or "unknown",
@@ -851,13 +893,15 @@ def main(argv: Optional[List[str]] = None) -> int:
                        user_tier=entry.get("user_tier"),
                        duration_s=round(duration, 1),
                        clone_size_kb=size_kb,
+                       mas_related=classification.get("mas_related", ""),
                        uses_mas=classification.get("uses_mas", ""),
                        final_use_case=classification.get("final_use_case", ""),
                        error="")
             write_classifications_csv(state)
             durations.append(duration)
             tag = ""
-            if not classification.get("uses_mas") \
+            if not classification.get("mas_related") \
+                    or not classification.get("uses_mas") \
                     or not classification.get("final_use_case"):
                 tag = " (classification incomplete)"
             print(f"{prefix} ... done in {duration:.1f}s -> "

@@ -37,6 +37,8 @@ python -m venv .venv
 source .venv/bin/activate
 # Windows PowerShell
 # .\.venv\Scripts\Activate.ps1
+# Windows (recommended, avoids .py file-association issues)
+# py -m venv .venv
 
 pip install -r requirements.txt
 ```
@@ -59,7 +61,20 @@ $env:GITHUB_TOKEN = "ghp_xxx"
 
 ```bash
 python mas_scraper.py
+# Windows (recommended)
+# py mas_scraper.py
+# or use wrapper:
+# .\mas_scraper.cmd
 ```
+
+## Windows convenience wrappers
+
+If your Windows `.py` association is broken, run these wrappers (they call
+`py` directly and bypass file-association dialogs):
+
+- `.\mas_scraper.cmd`
+- `.\build_balanced_sample.cmd`
+- `.\analyze_repos.cmd`
 
 Expect the full run to take anywhere from ~15 minutes to an hour depending on
 how many repos survive discovery and your current rate-limit budget. Progress

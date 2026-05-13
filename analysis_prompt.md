@@ -85,14 +85,19 @@ Three short bullet lists:
 
 ## 8. Machine-readable classification
 
-End the report with this exact two-line block, plain text, no code fence,
+End the report with this exact three-line block, plain text, no code fence,
 no extra characters before or after. Downstream tooling parses these
 verbatim, so the keys and casing must be preserved.
 
+MAS_RELATED: yes
 USES_MAS: yes
 FINAL_USE_CASE: Workflow Automation
 
 Rules:
+- `MAS_RELATED` must be exactly `yes` or `no`. Use `yes` when the repository
+  is materially about MAS/agentic systems (examples: multi-agent framework,
+  agent platform, agent orchestration examples, agent-focused tooling, agent
+  research artifacts). Use `no` for clearly unrelated repositories.
 - `USES_MAS` must be exactly `yes` or `no`. Use `yes` only if the repo
   actually implements multiple coordinated LLM agents (planner+worker,
   manager+team, swarm, multi-role debate, graph of agents, etc.) at
